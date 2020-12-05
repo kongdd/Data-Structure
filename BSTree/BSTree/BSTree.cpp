@@ -1,10 +1,7 @@
-// BSTree.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
-//
-
-#include "stdafx.h"
 #include "BSTree.h"
 #include<iostream>
 using namespace std;
+
 int main()
 {
 	BSTree<int> t;
@@ -20,16 +17,16 @@ int main()
 	t.insert(93);
 	t.insert(95);
 
-	cout << endl << "ÖĞĞò±éÀú£º" << endl;
+	cout << endl << "ä¸­åºéå†ï¼š" << endl;
 	t.inOrder();
 
-	cout << "×î´óÔªËØ:" << t.search_maximum() << endl;
-	cout << "×îĞ¡ÔªËØ:" << t.search_minimun() << endl;
+	cout << "max Element:" << t.search_maximum() << endl;
+	cout << "min Element:" << t.search_minimun() << endl;
 
-	cout << "É¾³ıÔªËØ99" << endl;
+	cout << "åˆ é™¤å…ƒç´ 99" << endl;
 	t.remove(99);
 
-	cout << "×î´óÔªËØ:" << t.search_maximum() << endl;
+	cout << "æœ€å¤§å…ƒç´ :" << t.search_maximum() << endl;
 
 	t.destory();
 

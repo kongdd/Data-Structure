@@ -1,7 +1,10 @@
 #ifndef BINARY_SEARCH_TREE_HPP
 #define BINARY_SEARCH_TREE_HPP
 
-//¶ş²æ²éÕÒÊ÷µÄ½Úµã½á¹¹
+#include <iostream>
+using namespace std;
+
+//äºŒå‰æŸ¥æ‰¾æ ‘çš„èŠ‚ç‚¹ç»“æ„
 template <typename T>
 struct BSNode
 {
@@ -16,7 +19,7 @@ struct BSNode
 	BSNode<T>* parent;
 };
 
-//¶ş²æ²éÕÒÊ÷Àà
+//äºŒå‰æŸ¥æ‰¾æ ‘ç±»
 template <typename T>
 class BSTree
 {
@@ -24,28 +27,28 @@ public:
 	BSTree();
 	~BSTree();
 
-	void preOrder();	//Ç°Ğò±éÀú¶ş²æÊ÷
-	void inOrder();		//ÖĞĞò±éÀú¶ş²æÊ÷
-	void postOrder();	//ºóĞò±éÀú¶ş²æÊ÷
-	//void layerOrder();	//²ã´Î±éÀú¶ş²æÊ÷
+	void preOrder();	//å‰åºéå†äºŒå‰æ ‘
+	void inOrder();		//ä¸­åºéå†äºŒå‰æ ‘
+	void postOrder();	//ååºéå†äºŒå‰æ ‘
+	//void layerOrder();	//å±‚æ¬¡éå†äºŒå‰æ ‘
 
-	BSNode<T>* search_recursion(T key);		//µİ¹éµØ½øĞĞ²éÕÒ
-	BSNode<T>* search_Iterator(T key);		//µü´úµØ½øĞĞ²éÕÒ
+	BSNode<T>* search_recursion(T key);		//é€’å½’åœ°è¿›è¡ŒæŸ¥æ‰¾
+	BSNode<T>* search_Iterator(T key);		//è¿­ä»£åœ°è¿›è¡ŒæŸ¥æ‰¾
 
-	T search_minimun(); //²éÕÒ×îĞ¡ÔªËØ
-	T search_maximum(); //²éÕÒ×î´óÔªËØ
+	T search_minimun(); //æŸ¥æ‰¾æœ€å°å…ƒç´ 
+	T search_maximum(); //æŸ¥æ‰¾æœ€å¤§å…ƒç´ 
 
-	BSNode<T>* successor  (BSNode<T>* x);	//²éÕÒÖ¸¶¨½ÚµãµÄºó¼Ì½Úµã
-	BSNode<T>* predecessor(BSNode<T>* x);	//²éÕÒÖ¸¶¨½ÚµãµÄÇ°Çı½Úµã
+	BSNode<T>* successor  (BSNode<T>* x);	//æŸ¥æ‰¾æŒ‡å®šèŠ‚ç‚¹çš„åç»§èŠ‚ç‚¹
+	BSNode<T>* predecessor(BSNode<T>* x);	//æŸ¥æ‰¾æŒ‡å®šèŠ‚ç‚¹çš„å‰é©±èŠ‚ç‚¹
 
-	void insert(T key);	//²åÈëÖ¸¶¨Öµ½Úµã
-	void remove(T key);	//É¾³ıÖ¸¶¨Öµ½Úµã
-	void destory();		//Ïú»Ù¶ş²æÊ÷
-	void print();		//´òÓ¡¶ş²æÊ÷
+	void insert(T key);	//æ’å…¥æŒ‡å®šå€¼èŠ‚ç‚¹
+	void remove(T key);	//åˆ é™¤æŒ‡å®šå€¼èŠ‚ç‚¹
+	void destory();		//é”€æ¯äºŒå‰æ ‘
+	void print();		//æ‰“å°äºŒå‰æ ‘
 
 
 private:
-	BSNode<T>* root; //¸ù½Úµã
+	BSNode<T>* root; //æ ¹èŠ‚ç‚¹
 private:
 	BSNode<T>* search(BSNode<T>* & p, T key); 
 	void remove(BSNode<T>*  p, T key);		  
@@ -58,24 +61,24 @@ private:
 	
 };
 
-/*Ä¬ÈÏ¹¹Ôìº¯Êı*/
+/*é»˜è®¤æ„é€ å‡½æ•°*/
 template <typename T>
 BSTree<T>::BSTree() :root(nullptr){};
 
-/*Îö¹¹º¯Êı*/
+/*ææ„å‡½æ•°*/
 template <typename T>
 BSTree<T>::~BSTree()
 {
 	destory(root);
 };
-/*²åÈëº¯Êı*/
+/*æ’å…¥å‡½æ•°*/
 template <typename T>
 void BSTree<T>::insert(T key)
 {
 	BSNode<T>* pparent = nullptr;
 	BSNode<T>* pnode = root;
 
-	while (pnode != nullptr)		//Ñ°ÕÒºÏÊÊµÄ²åÈëÎ»ÖÃ
+	while (pnode != nullptr)		//å¯»æ‰¾åˆé€‚çš„æ’å…¥ä½ç½®
 	{
 		pparent = pnode;
 		if (key > pnode->value)
@@ -87,41 +90,41 @@ void BSTree<T>::insert(T key)
 	}
 
 	pnode = new BSNode<T>(key);
-	if (pparent == nullptr)			//Èç¹ûÊÇ¿ÕÊ÷
+	if (pparent == nullptr)			//å¦‚æœæ˜¯ç©ºæ ‘
 	{
-		root = pnode;				//ÔòĞÂ½ÚµãÎª¸ù
+		root = pnode;				//åˆ™æ–°èŠ‚ç‚¹ä¸ºæ ¹
 	}
 	else
 	{
 		if (key > pparent->value)	
 		{
-			pparent->rchild = pnode;//·ñÔòĞÂ½ÚµãÎªÆä¸¸½ÚµãµÄ×óº¢
+			pparent->rchild = pnode;//å¦åˆ™æ–°èŠ‚ç‚¹ä¸ºå…¶çˆ¶èŠ‚ç‚¹çš„å·¦å­©
 		}
 		else
-			pparent->lchild = pnode;//»òÓÒº¢
+			pparent->lchild = pnode;//æˆ–å³å­©
 	}
-	pnode->parent = pparent;		//Ö¸Ã÷ĞÂ½ÚµãµÄ¸¸½Úµã
+	pnode->parent = pparent;		//æŒ‡æ˜æ–°èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
 
 };
 
-/*²éÕÒÖ¸¶¨ÔªËØµÄ½Úµã£¨·Çµİ¹é£©*/
+/*æŸ¥æ‰¾æŒ‡å®šå…ƒç´ çš„èŠ‚ç‚¹ï¼ˆéé€’å½’ï¼‰*/
 template <typename T>
 BSNode<T>* BSTree<T>::search_Iterator(T key)
 {
 	BSNode<T> * pnode = root;
 	while (pnode != nullptr)
 	{
-		if (key == pnode->value)	//ÕÒµ½
+		if (key == pnode->value)	//æ‰¾åˆ°
 			return pnode;
-		if (key > pnode->value)		//¹Ø¼ü×Ö±È½ÚµãÖµ´ó£¬ÔÚ½ÚµãÓÒ×ÓÊ÷²éÕÒ
+		if (key > pnode->value)		//å…³é”®å­—æ¯”èŠ‚ç‚¹å€¼å¤§ï¼Œåœ¨èŠ‚ç‚¹å³å­æ ‘æŸ¥æ‰¾
 			pnode = pnode->rchild;
 		else
-			pnode = pnode->lchild; //¹Ø¼ü×Ö±È½ÚµãÖµĞ¡£¬ÔÚ½Úµã×ó×ÓÊ÷²éÕÒ
+			pnode = pnode->lchild; //å…³é”®å­—æ¯”èŠ‚ç‚¹å€¼å°ï¼Œåœ¨èŠ‚ç‚¹å·¦å­æ ‘æŸ¥æ‰¾
 	}
 	return nullptr;
 };
 
-/*²éÕÒÖ¸¶¨ÔªËØµÄ½Úµã£¨µİ¹é£©*/
+/*æŸ¥æ‰¾æŒ‡å®šå…ƒç´ çš„èŠ‚ç‚¹ï¼ˆé€’å½’ï¼‰*/
 template <typename T>
 BSNode<T>* BSTree<T>::search_recursion(T key)
 {
@@ -129,7 +132,7 @@ BSNode<T>* BSTree<T>::search_recursion(T key)
 };
 
 /*private:search()*/
-/*µİ¹é²éÕÒµÄÀàÄÚ²¿ÊµÏÖ*/
+/*é€’å½’æŸ¥æ‰¾çš„ç±»å†…éƒ¨å®ç°*/
 template <typename T>
 BSNode<T>* BSTree<T>::search(BSNode<T>* & pnode, T key)
 {
@@ -137,20 +140,20 @@ BSNode<T>* BSTree<T>::search(BSNode<T>* & pnode, T key)
 		return nullptr;
 	if (pnode->value == key)
 		return pnode;
-	//cout << "-->" << pnode->value << endl; //¿ÉÒÔÊä³ö²éÕÒÂ·¾¶
+	//cout << "-->" << pnode->value << endl; //å¯ä»¥è¾“å‡ºæŸ¥æ‰¾è·¯å¾„
 	if (key > pnode->value)
 		return search(pnode->rchild, key);
 	return search(pnode->lchild, key);
 };
 
-/*É¾³ıÖ¸¶¨½Úµã*/
+/*åˆ é™¤æŒ‡å®šèŠ‚ç‚¹*/
 template <typename T>
 void BSTree<T>::remove(T key)
 {
 	remove(root, key);
 };
-/*É¾³ıÖ¸¶¨½Úµã*/
-/*ÄÚ²¿Ê¹ÓÃº¯Êı*/
+/*åˆ é™¤æŒ‡å®šèŠ‚ç‚¹*/
+/*å†…éƒ¨ä½¿ç”¨å‡½æ•°*/
 template <typename T>
 void BSTree<T>::remove(BSNode<T>* pnode, T key)
 {
@@ -161,26 +164,26 @@ void BSTree<T>::remove(BSNode<T>* pnode, T key)
 			BSNode<T>* pdel=nullptr;
 		
 			if (pnode->lchild == nullptr || pnode->rchild == nullptr)
-				pdel = pnode;					//Çé¿ö¶ş¡¢Èı£º±»É¾½ÚµãÖ»ÓĞ×ó×ÓÊ÷»òÓÒ×ÓÊ÷£¬»òÃ»ÓĞº¢×Ó
+				pdel = pnode;					//æƒ…å†µäºŒã€ä¸‰ï¼šè¢«åˆ èŠ‚ç‚¹åªæœ‰å·¦å­æ ‘æˆ–å³å­æ ‘ï¼Œæˆ–æ²¡æœ‰å­©å­
 			else 
-				pdel = predecessor(pnode);      //Çé¿öÒ»£º±»É¾½ÚµãÍ¬Ê±ÓĞ×óÓÒ×ÓÊ÷£¬ÔòÉ¾³ı¸Ã½ÚµãµÄÇ°Çı
+				pdel = predecessor(pnode);      //æƒ…å†µä¸€ï¼šè¢«åˆ èŠ‚ç‚¹åŒæ—¶æœ‰å·¦å³å­æ ‘ï¼Œåˆ™åˆ é™¤è¯¥èŠ‚ç‚¹çš„å‰é©±
 
-			//´ËÊ±£¬±»É¾½ÚµãÖ»ÓĞÒ»¸öº¢×Ó£¨»òÃ»ÓĞº¢×Ó£©.±£´æ¸Ãº¢×ÓÖ¸Õë
+			//æ­¤æ—¶ï¼Œè¢«åˆ èŠ‚ç‚¹åªæœ‰ä¸€ä¸ªå­©å­ï¼ˆæˆ–æ²¡æœ‰å­©å­ï¼‰.ä¿å­˜è¯¥å­©å­æŒ‡é’ˆ
 			BSNode<T>* pchild=nullptr;
 			if (pdel->lchild != nullptr)
 				pchild = pdel->lchild;
 			else
 				pchild = pdel->rchild;
 
-			//ÈÃº¢×ÓÖ¸Ïò±»É¾³ı½ÚµãµÄ¸¸½Úµã
+			//è®©å­©å­æŒ‡å‘è¢«åˆ é™¤èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
 			if (pchild != nullptr)
 				pchild->parent = pdel->parent;
 
-			//Èç¹ûÒªÉ¾³ıµÄ½ÚµãÊÇÍ·½Úµã£¬×¢Òâ¸ü¸ÄrootµÄÖµ
+			//å¦‚æœè¦åˆ é™¤çš„èŠ‚ç‚¹æ˜¯å¤´èŠ‚ç‚¹ï¼Œæ³¨æ„æ›´æ”¹rootçš„å€¼
 			if (pdel->parent == nullptr) 
 				root = pchild;			
 
-			//Èç¹ûÒªÉ¾³ıµÄ½Úµã²»ÊÇÍ·½Úµã£¬Òª×¢Òâ¸ü¸ÄËüµÄË«Ç×½ÚµãÖ¸ÏòĞÂµÄº¢×Ó½Úµã
+			//å¦‚æœè¦åˆ é™¤çš„èŠ‚ç‚¹ä¸æ˜¯å¤´èŠ‚ç‚¹ï¼Œè¦æ³¨æ„æ›´æ”¹å®ƒçš„åŒäº²èŠ‚ç‚¹æŒ‡å‘æ–°çš„å­©å­èŠ‚ç‚¹
 			else if (pdel->parent->lchild==pdel)
 			{
 				pdel->parent->lchild = pchild;
@@ -194,7 +197,7 @@ void BSTree<T>::remove(BSNode<T>* pnode, T key)
 				pnode->value = pdel->value;
 			delete pdel;
 		}
-		//½øĞĞµİ¹éÉ¾³ı
+		//è¿›è¡Œé€’å½’åˆ é™¤
 		else if (key > pnode->value)
 		{
 			remove(pnode->rchild, key);
@@ -202,12 +205,12 @@ void BSTree<T>::remove(BSNode<T>* pnode, T key)
 		else remove(pnode->lchild, key);
 	}
 };
-/*Ñ°ÕÒÆäÇ°Çı½Úµã*/
+/*å¯»æ‰¾å…¶å‰é©±èŠ‚ç‚¹*/
 /*
-Ò»¸ö½ÚµãµÄÇ°Çı½ÚµãÓĞ3ÖÖÇé¿ö£º
-1. ËüÓĞ×ó×ÓÊ÷£¬Ôò×ó×ÓÊ÷¸ù½ÚµãÎªÆäÇ°Çı½Úµã
-2. ËüÃ»ÓĞ×ó×ÓÊ÷£¬ÇÒËü±¾ÉíÎªÓÒ×ÓÊ÷£¬ÔòÆä¸¸½ÚµãÎªÆäÇ°Çı½Úµã
-3. ËüÃ»ÓĞ×ó×ÓÊ÷£¬ÇÒËü±¾ÉíÎª×ó×ÓÊ÷£¬ÔòËüµÄÇ°Çı½ÚµãÎª¡°µÚÒ»¸öÓµÓĞÓÒ×ÓÊ÷µÄ¸¸½Úµã¡±
+ä¸€ä¸ªèŠ‚ç‚¹çš„å‰é©±èŠ‚ç‚¹æœ‰3ç§æƒ…å†µï¼š
+1. å®ƒæœ‰å·¦å­æ ‘ï¼Œåˆ™å·¦å­æ ‘æ ¹èŠ‚ç‚¹ä¸ºå…¶å‰é©±èŠ‚ç‚¹
+2. å®ƒæ²¡æœ‰å·¦å­æ ‘ï¼Œä¸”å®ƒæœ¬èº«ä¸ºå³å­æ ‘ï¼Œåˆ™å…¶çˆ¶èŠ‚ç‚¹ä¸ºå…¶å‰é©±èŠ‚ç‚¹
+3. å®ƒæ²¡æœ‰å·¦å­æ ‘ï¼Œä¸”å®ƒæœ¬èº«ä¸ºå·¦å­æ ‘ï¼Œåˆ™å®ƒçš„å‰é©±èŠ‚ç‚¹ä¸ºâ€œç¬¬ä¸€ä¸ªæ‹¥æœ‰å³å­æ ‘çš„çˆ¶èŠ‚ç‚¹â€
 */
 template <typename T>
 BSNode<T>* BSTree<T>::predecessor(BSNode<T>* pnode)
@@ -223,7 +226,7 @@ BSNode<T>* BSTree<T>::predecessor(BSNode<T>* pnode)
 	}
 
 	BSNode<T>* pparent = pnode->parent;
-	while (pparent != nullptr && pparent->lchild == pnode)//Èç¹û½øÈëÑ­»·£¬ÔòÊÇµÚÈıÖÖÇé¿ö£»·ñÔòÎªµÚ¶şÖÖÇé¿ö
+	while (pparent != nullptr && pparent->lchild == pnode)//å¦‚æœè¿›å…¥å¾ªç¯ï¼Œåˆ™æ˜¯ç¬¬ä¸‰ç§æƒ…å†µï¼›å¦åˆ™ä¸ºç¬¬äºŒç§æƒ…å†µ
 	{
 		pnode = pparent;
 		pparent = pparent->parent;
@@ -231,12 +234,12 @@ BSNode<T>* BSTree<T>::predecessor(BSNode<T>* pnode)
 	return pparent;
 };
 
-/*Ñ°ÕÒÆäºó¼Ì½Úµã*/
+/*å¯»æ‰¾å…¶åç»§èŠ‚ç‚¹*/
 /*
-Ò»¸öµãÓĞºó¼Ì½ÚµãµÄÇé¿ö£º
-1. ËüÓĞÓÒ×ÓÊ÷£»ÔòÆäºó¼Ì½ÚµãÎªÆäÓÒ×ÓÊ÷µÄ×î×ó½Úµã
-2. ËüÃ»ÓĞÓÒ×ÓÊ÷£¬µ«Ëü±¾ÉíÊÇÒ»¸ö×óº¢×Ó£¬Ôòºó¼Ì½ÚµãÎªËüµÄË«Ç×
-3. ËüÃ»ÓĞÓÒ×ÓÊ÷£¬µ«Ëü±¾ÉíÊÇÒ»¸öÓÒº¢×Ó£¬ÔòÆäºó¼Ì½ÚµãÎª¡°¾ßÓĞ×óº¢×ÓµÄ×î½ü¸¸½Úµã¡±
+ä¸€ä¸ªç‚¹æœ‰åç»§èŠ‚ç‚¹çš„æƒ…å†µï¼š
+1. å®ƒæœ‰å³å­æ ‘ï¼›åˆ™å…¶åç»§èŠ‚ç‚¹ä¸ºå…¶å³å­æ ‘çš„æœ€å·¦èŠ‚ç‚¹
+2. å®ƒæ²¡æœ‰å³å­æ ‘ï¼Œä½†å®ƒæœ¬èº«æ˜¯ä¸€ä¸ªå·¦å­©å­ï¼Œåˆ™åç»§èŠ‚ç‚¹ä¸ºå®ƒçš„åŒäº²
+3. å®ƒæ²¡æœ‰å³å­æ ‘ï¼Œä½†å®ƒæœ¬èº«æ˜¯ä¸€ä¸ªå³å­©å­ï¼Œåˆ™å…¶åç»§èŠ‚ç‚¹ä¸ºâ€œå…·æœ‰å·¦å­©å­çš„æœ€è¿‘çˆ¶èŠ‚ç‚¹â€
 */
 template <typename T>
 BSNode<T>* BSTree<T>::successor(BSNode<T>* pnode)
@@ -261,7 +264,7 @@ BSNode<T>* BSTree<T>::successor(BSNode<T>* pnode)
 };
 
 
-/*Ç°Ğò±éÀúËã·¨*/
+/*å‰åºéå†ç®—æ³•*/
 template <typename T>
 void BSTree<T>::preOrder()
 {
@@ -277,7 +280,7 @@ void BSTree<T>::preOrder(BSNode<T> *p)
 		preOrder(p->rchild);
 	}
 };
-/*ÖĞĞò±éÀúËã·¨*/
+/*ä¸­åºéå†ç®—æ³•*/
 template <typename T>
 void BSTree<T>::inOrder()
 {
@@ -293,7 +296,7 @@ void BSTree<T>::inOrder(BSNode<T>* p)
 		inOrder(p->rchild);
 	}
 };
-/*ºóĞò±éÀúËã·¨*/
+/*ååºéå†ç®—æ³•*/
 template <typename T>
 void BSTree<T>::postOrder()
 {
@@ -309,7 +312,7 @@ void BSTree<T>::postOrder(BSNode<T>* p)
 		cout << p->value<<endl;
 	}
 };
-/*Ñ°ÕÒ×îĞ¡ÔªËØ*/
+/*å¯»æ‰¾æœ€å°å…ƒç´ */
 template <typename T>
 T BSTree<T>::search_minimun()
 {
@@ -323,7 +326,7 @@ T BSTree<T>::search_minimun(BSNode<T>* p)
 	return p->value;
 };
 
-/*Ñ°ÕÒ×î´óÔªËØ*/
+/*å¯»æ‰¾æœ€å¤§å…ƒç´ */
 template <typename T>
 T BSTree<T>::search_maximum()
 {
@@ -337,7 +340,7 @@ T BSTree<T>::search_maximum(BSNode<T>*p)
 	return p->value;
 };
 
-/*Ïú»Ù¶ş²æÊ÷*/
+/*é”€æ¯äºŒå‰æ ‘*/
 template<typename T>
 void BSTree<T>::destory()
 {
